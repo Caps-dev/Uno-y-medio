@@ -1,0 +1,1 @@
+agregar en getCartaValida para que tambien de como validas las cartas negras de la mano
