@@ -60,6 +60,11 @@ public class Main {
 
 		// int test2 = interfaz.botarRecoger(basura, "Buscar en Pila",basura); // como
 		// esto recibe un mazo generico entonces podemos buscar dentro de cualquier pila
-		juego.jugador(mano1, basura, pila);
+		do {
+			System.out.println(basura.getUltimaCarta());
+			juego.jugador(mano1, basura, pila);
+			System.out.println(basura);
+			juego.computadora(mano2, basura, pila);
+		} while (mano1.getMazo().length != 0);
 	}
 }
