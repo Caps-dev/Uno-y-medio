@@ -4,9 +4,11 @@ public class Interfaz {
 	boolean estaActivo;
 	int tipoDeJuego = 0;
 
-	public int botarRecoger(Mazo mazoParametro, String tituloCuadro, Mazo pilaBasura) { // funcion es un mal nombre
-																						// porque el argumento es el
-																						// titulo no un metodo
+	public void mostrarTexto(String texto, String titulo){ // usando esto que vimos en clase
+		JOptionPane.showMessageDialog(null, texto, titulo, JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	public int botarRecoger(Mazo mazoParametro, String tituloCuadro, Mazo pilaBasura) { 
 
 		String cartas[] = mazoParametro.mazoToString(); // ahora esto recibe un mazo generico
 
@@ -16,10 +18,7 @@ public class Interfaz {
 			// necesito que esto me devuelva un numero de 0 a n que represente la posicion
 			// de la carta dentro del array
 			// pero necesito que me imprima en si los valores de las cartas
-			opcion = String.valueOf(JOptionPane.showInputDialog(null, "seleccione una carta", tituloCuadro, // quit el
-																											// concatenado
-																											// que no es
-																											// util
+			opcion = String.valueOf(JOptionPane.showInputDialog(null, "seleccione una carta", tituloCuadro,
 					JOptionPane.QUESTION_MESSAGE, null, cartas, cartas[0])); // cartas[0] es el valor por defecto
 		} while (opcion == "null"); // el boton de cancelar no funciona porque esto esta dentro de un while CORREGIR
 

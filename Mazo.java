@@ -6,6 +6,11 @@ public class Mazo {
 		return mazo;
 	}
 
+	public int getTamanio() {
+		 int tamanio = mazo.length;
+		 return tamanio;
+	}
+
 
 	public String obtenerColor(int numero){ 
 		String color = "Rojo";

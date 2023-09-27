@@ -1,35 +1,39 @@
 public class Jugador { // al hacer una clase jugador podemos usar este mismo objeto para hacerlo contra dos jugadores
 	// no cambia mucho los contenidos pero mas para una distincion de nomenclatura que tenga sentido
 
-	String nombreJugador;
 	boolean turno = true;
 
- 	public Jugador (boolean turnoParametro, String nombreJugador){
+	/*
+
+ 	public Jugador (boolean turnoParametro){
    		//System.out.println("-> Se invoca al constructor que recibe el numero y el palo");
    		turno = turnoParametro;
    		nombreJugador = nombreJugador;
    	}
 
-
-
+   	*/
 
 	public void jugar(Mazo mano, Mazo basuraParametro, Mazo pila, String nombreJ) { // me gustaria descomponer esto en mas metodos
 		int opcion;
 		Interfaz interfaz = new Interfaz();
-		Mazo manoValida = new Mazo(); // al declararlo dentro de cada uno no se comparte la memoria
+		//Mazo manoValida = new Mazo(); // al declararlo dentro de cada uno no se comparte la memoria
 		turno = true;
 		opcion = 0;
+		boolean condicion = false;
 		do {
-			manoValida.recibirCarta(mano.getCartaValida(basuraParametro.getUltimaCarta()));// Aqui recibo solo las
-			if (manoValida.getMazo().length > 0) {
+			//manoValida.recibirCarta(  mano.getCartaValida(basuraParametro.getUltimaCarta())  );// Aqui recibo solo las
+			if (mano.getCartaValida(basuraParametro.getUltimaCarta()).length > 0) {
 				try {
-					// me gustaria mostrar todas las cartas disponibles y que se le de la opcion de tirar cualquier carta
-					//pero que luego se le diga que no puede jugar una carta especifica
-					opcion = interfaz.botarRecoger(manoValida, nombreJ, basuraParametro); // puedo jugar para selecionar
 
+					while(condicion==false){
+						opcion = interfaz.botarRecoger(mano, nombreJ, basuraParametro); //devuelve posicion de la carta
+						condicion = mano.esCartaValida(mano.getMazo()[opcion],basuraParametro.getUltimaCarta());
+						if (condicion==false){
+							interfaz.mostrarTexto("Favor use una carta valida","Atencion");
+						}
 
-
-					
+					}
+					/*
 					for (int i = 0; i < mano.getMazo().length; i++) {
 						if (mano.getMazo()[i] == manoValida.getMazo()[opcion]) { // hice que la interfaz solo nos
 																					// muestre las cartas validas para
@@ -38,6 +42,7 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 							opcion = i; // el For nos sirve para encontrar la posion de la carta valida en la mano
 						}
 					}
+					*/
 				} catch (Exception e) {
 					System.out.println();
 				}
