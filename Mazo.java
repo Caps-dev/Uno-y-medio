@@ -7,7 +7,7 @@ public class Mazo {
 	}
 
 
-	public String obtenerColor(int numero){
+	public String obtenerColor(int numero){ 
 		String color = "Rojo";
 
 		if(numero == 0){
@@ -23,9 +23,20 @@ public class Mazo {
 		}
 	return color;
 	}
+
+	public void getColor(){
+		for(int i = 0 ; i < mazo.length ; i++){
+			System.out.println(mazo[i].getColor());
+
+		}
+
+	}
+
+
+
 	
 	public void generarMazo (){ //generar mazo
-		mazo = new Carta[88];
+		mazo = new Carta[72];
 
 		//mazo[0] = new Carta(1,"A");
 		int celda = 0;
@@ -41,7 +52,7 @@ public class Mazo {
 			}
 
 		}
-		
+		/*
 		celda = 72;
 		for(int j = 0 ; j < 4 ; j++){ // 4 artas por tipo
 			for(int i = 9; i <= 12; i++){
@@ -50,6 +61,7 @@ public class Mazo {
 				celda++;
 			}	
 		}
+		*/
 	
 	}
 
@@ -201,7 +213,24 @@ public class Mazo {
 	}
 
 
-	public Carta [] getCartaValida(Carta ultimaCarta){ //comparamos el mazo actual contra una carta externa y vemos que cartas del mazo actual se pueden jugar
+	public boolean esCartaValida(Carta carta1,Carta ultimaCarta){ //queremos ver si carta1 es valida
+
+		String colorUltimaCarta = ultimaCarta.getColor();
+		String colorCarta1 = carta1.getColor();
+
+		boolean test = ( 
+			( carta1.getColor()=="Negro" ) || 
+			( colorUltimaCarta.equals(colorCarta1) ) || // descubri esto despues de muchos errores
+			( ultimaCarta.getId()==carta1.getId() )  // no hace falta hacer todo el switch a string si ya tenemos el id
+			) ;
+		return test;
+
+
+
+	}
+
+
+	public Carta [] getCartaValida(Carta ultimaCartaParam){ //comparamos el mazo actual contra una carta externa y vemos que cartas del mazo actual se pueden jugar
 
 		int celda = 0; // hacemos un contador para la celda aparte para poder hacerle skip a las cartas no validas
 		int i = 0 ;
@@ -209,7 +238,7 @@ public class Mazo {
 
 		while(i<mazo.length){ // un ciclo para contar las cartas validas
 
-			if(ultimaCarta.getColor()==mazo[i].getColor()){
+			if (   esCartaValida(mazo[i],ultimaCartaParam)  ){ 
 				cartasValidas++;
 				i++;
 
@@ -223,9 +252,9 @@ public class Mazo {
 
 		i = 0 ;
 
-		while(i<mazo.length){ // un ciclo para contar las cartas validas
+		while(i<mazo.length){ // un ciclo para agregar las cartas validas
 
-			if(   ultimaCarta.getColor()==mazo[i].getColor()   ){ //falta agregar la comparacion por numero y agregar la comparacion para las cartas especiales
+			if(    esCartaValida(mazo[i],ultimaCartaParam)   ){ //falta agregar la comparacion por numero y agregar la comparacion para las cartas especiales
 
 				nuevoArreglo[celda]= mazo[i];
 				i++;

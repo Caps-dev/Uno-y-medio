@@ -12,13 +12,17 @@ public class Carta {
    	}
 
 
+   	public int getId(){
+   		return id;
+   	}
+
+
    	// hacer metodos set y get
    	// por el momento solo vamos a usar el constructor
 
-   	public String getNumeroSwitch(){
+   	public String getNumeroSwitch(){ // deberiamos cambiar este nombre por uno mejor, al inicio lo hice con este nombre pero creo que no es el mejor
 		String valorCarta = "";
 		switch(this.id){
-			// 1 -> As, 11-> J, 12 -> Q, 13 -> K
 			case 9:
 				valorCarta = "Come 2";
 			break; 
@@ -61,6 +65,10 @@ public class Carta {
 		return simbolo;
 	}
 
+	public void setColor(String colorPar){ //principalmente hago este metodo para las cartas especiales donde la gente escoge el color que quiere que se juego
+		color = colorPar;
+
+	}
 
 
 

@@ -6,9 +6,22 @@ public class Main {
 		Mazo mano2 = new Mazo();
 		Mazo basura = new Mazo();
 		// Interfaz interfaz = new Interfaz();
-		Juego juego = new Juego();
+		//Juego juego = new Juego();
+		Jugador jugador1 = new Jugador(true,"Miguel");
+		Jugador computadora = new Jugador(true,"Juan");
+
+/*
+		Carta carta1 = new Carta(2,"AA");
+		Carta ultimaCarta = new Carta(3,"Gris");
+
+		System.out.println(mano1.testCartaValida(carta1,ultimaCarta));
+
+*/ 
+
 
 		// hay que encontrar una forma de hacer esto un metodo
+
+		
 
 		pila.generarMazo();
 		pila.revolver(); // esto se podria meter al metodo de generar mazo cuando ya estemos as seguros
@@ -16,13 +29,19 @@ public class Main {
 		// System.out.println(pila);
 		System.out.println("----------------");
 		// voy a empezar dando 10 cartas para probar el funcionamiento del juego
-		mano1.recibirCarta(pila.darCarta(5, 999)); // cuando se da una carta esta carta se quita del objeto que da la
+		mano1.recibirCarta(pila.darCarta(3, 999)); // cuando se da una carta esta carta se quita del objeto que da la
 													// carta //999 significa que no importa el orden
-		mano2.recibirCarta(pila.darCarta(5, 999)); // cuando se da una carta esta carta se quita del objeto que da la
+		mano2.recibirCarta(pila.darCarta(3, 999)); // cuando se da una carta esta carta se quita del objeto que da la
 													// carta
-		basura.recibirCarta(pila.darCarta(1, 999));// se activa la basura para saber con cual carta inicia el juego
-		// System.out.println(mano1);
-		// System.out.println(mano2);
+		basura.recibirCarta(pila.darCarta(1, 999));// se activa la basura para saber con cual carta inicia el juego // hacemos esto para no dar ventaja a un jugador
+
+		System.out.println("mano1------------"); // for dev purposes
+
+		System.out.println(mano1);
+		System.out.println("mano2------------"); // for dev purposes
+
+		System.out.println(mano2);
+
 
 		// int prueba1 = interfaz.botarRecoger(mano1, "Jugador 1", basura); // esto
 		// recibe un mazo x entonces podemos
@@ -31,7 +50,7 @@ public class Main {
 		// basura.recibirCarta(mano1.darCarta(1, prueba1));
 		// System.out.println(basura.getUltimaCarta());
 
-		System.out.println("---------   Cartas Validas para Mano 2 abajo  -----------------\n");
+		//System.out.println("---------   Cartas Validas para Mano 2 abajo  -----------------\n");
 
 		// Carta[] pruebaValida = mano2.getCartaValida(basura.getUltimaCarta());
 		// System.out.println(mano2.convertirArraytoString(pruebaValida)); // me
@@ -60,11 +79,25 @@ public class Main {
 
 		// int test2 = interfaz.botarRecoger(basura, "Buscar en Pila",basura); // como
 		// esto recibe un mazo generico entonces podemos buscar dentro de cualquier pila
+		int turnos  = 10;
+
+			
 		do {
+			System.out.println("Ultima Carta Jugada------------"); // for dev purposes
 			System.out.println(basura.getUltimaCarta());
-			juego.jugador(mano1, basura, pila);
-			System.out.println(basura);
-			juego.computadora(mano2, basura, pila);
-		} while (mano1.getMazo().length != 0);
+			//System.out.println("mano1------------"); // for dev purposes
+			//System.out.println(mano1); // for dev purposes
+			jugador1.jugar(mano1, basura, pila,"Jugador 1");
+			System.out.println("Ultima Carta Jugada------------"); // for dev purposes
+			System.out.println(basura.getUltimaCarta());
+//			System.out.println("mano2------------"); // for dev purposes
+			//System.out.println(mano2); //for dev purposes
+			computadora.jugar(mano2, basura, pila,"Jugador 2");
+			turnos --;
+
+		} while ( (mano1.getMazo().length > 1 ) && (mano2.getMazo().length > 1 ) ); // si una de las dos manos se hace cero ya termina
+
+
+
 	}
 }
