@@ -61,14 +61,16 @@ public class Carta {
 		return color;
 	}
 
-	public String getSimbolo(){
-		return simbolo;
-	}
-
+	
 	public void setColor(String colorPar){ //principalmente hago este metodo para las cartas especiales donde la gente escoge el color que quiere que se juego
 		color = colorPar;
 
 	}
+
+	public String getSimbolo(){
+		return simbolo;
+	}
+
 
 
 

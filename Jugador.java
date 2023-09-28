@@ -10,58 +10,79 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
    		turno = turnoParametro;
    		nombreJugador = nombreJugador;
    	}
+	*/	
+   	public int inputJugador(String nombreJ, Mazo mano, Mazo basuraParametro){ //! Hace cumplir las reglas para jugadores humanos
 
-   	*/
+   		Interfaz interfaz = new Interfaz();   
+   		int posicion=0;			
+	   	boolean esCartaValida = false;
 
-	public void jugar(Mazo mano, Mazo basuraParametro, Mazo pila, String nombreJ) { // me gustaria descomponer esto en mas metodos
-		int opcion;
-		Interfaz interfaz = new Interfaz();
-		//Mazo manoValida = new Mazo(); // al declararlo dentro de cada uno no se comparte la memoria
-		turno = true;
-		opcion = 0;
-		boolean condicion = false;
-		do {
-			//manoValida.recibirCarta(  mano.getCartaValida(basuraParametro.getUltimaCarta())  );// Aqui recibo solo las
-			if (mano.getCartaValida(basuraParametro.getUltimaCarta()).length > 0) {
-				try {
+		while(esCartaValida==false){ //mientras no seleccione una carta valida el loop va a seguir
+			posicion = interfaz.escogerCarta(mano, nombreJ, basuraParametro); //devuelve posicion de la carta
 
-					while(condicion==false){
-						opcion = interfaz.botarRecoger(mano, nombreJ, basuraParametro); //devuelve posicion de la carta
-						condicion = mano.esCartaValida(mano.getMazo()[opcion],basuraParametro.getUltimaCarta());
-						if (condicion==false){
-							interfaz.mostrarTexto("Favor use una carta valida","Atencion");
-						}
-
-					}
-					/*
-					for (int i = 0; i < mano.getMazo().length; i++) {
-						if (mano.getMazo()[i] == manoValida.getMazo()[opcion]) { // hice que la interfaz solo nos
-																					// muestre las cartas validas para
-																					// que sea mas facil y a menor error
-																					// para el usuario
-							opcion = i; // el For nos sirve para encontrar la posion de la carta valida en la mano
-						}
-					}
-					*/
-				} catch (Exception e) {
-					System.out.println();
-				}
-				basuraParametro.recibirCarta(mano.darCarta(1, opcion)); // aqui tiramos la carta a la basuraParametro
-				turno = false; // el turno cambia a 2 para que la siguiente persona siga jugando
-			} else {
-				System.out.println( nombreJ+  " no tiene cartas validas para jugar, se come una");
-				mano.recibirCarta(pila.darCarta(1, 999));// en el caso de que la persona no tenga cartas validas para
-															// jugar se le otorga una directamente hasta que pueda jugar
+			esCartaValida = mano.esCartaValida(mano.getMazo()[posicion],basuraParametro.getUltimaCarta());
+			if (esCartaValida==false){ //darle chance a la persona de que escoja
+				interfaz.mostrarTexto("Favor use una carta valida","Atencion");
 			}
-			// System.out.println(mano);// prueba solo para ver si si se tira la carta
-			// correcta
+		}
+
+		return posicion;
+
+   	}
+
+
+
+	public void jugar(String nombreJ, Juego juego, Mazo mano, Mazo basuraParametro, Mazo pila,  boolean cartaEspecialActiva, int comerEspecial) {
+		int posicion;
+		turno = true;
+		posicion = 0;
+		boolean esCartaValida = false;
+		boolean esCartaEspecial = false;
+		// comer una carta al inicio del turno
+		do {
+
+			if (mano.getCartaValida(basuraParametro.getUltimaCarta()).length > 0) {
+
+				posicion = inputJugador(nombreJ,mano,basuraParametro);
+
+				//aqui verificamos si la carta valida dada por el usuario es especial
+
+				esCartaEspecial = mano.esCartaEspecial(basuraParametro.getUltimaCarta());
+
+				// si es especial vamos a invocar metodos de cartas especiales
+				if(esCartaEspecial){
+
+				} else{ // si no, va a dar una carta a la pila de basura (juega la carta)
+					basuraParametro.recibirCarta(mano.darCarta(1, posicion)); // aqui tiramos la carta a la basuraParametro
+					turno = false; // el turno cambia a falso para que la siguiente persona siga jugando
+				}
+
+
+			} else if (cartaEspecialActiva==false) { // parte 1 cuando no tiene cartas validas
+				System.out.println( nombreJ+  " no tiene cartas validas para jugar, come 1");
+				if(pila.getTamanio()==0){
+					turno = false;
+				} else {				
+					mano.recibirCarta(pila.darCarta(1, 999));// en el caso de que la persona no tenga cartas validas para
+															// jugar se le otorga una directamente hasta que pueda jugar
+
+				}
+													
+			} 
+			/* else{
+
+				System.out.println( nombreJ+  " no tiene cartas validas para jugar, come" + comerEspecial);
+				mano.recibirCarta(pila.darCarta(comerEspecial, 999));// en el caso de que la persona no tenga cartas validas para
+															// jugar se le otorga una directamente hasta que pueda jugar
+
+			}
+			*/
+
 		} while (turno == true);
 
-		// Carta[] pruebaValidaComputadora =
-		// mano2.getCartaValida(basuraParametro.getUltimaCarta());
-		// int cartaAleatorio = (int) Math.random() * pruebaValidaComputadora.length;
 
-		// System.out.println(basuraParametro);// quitar despues de prueba
+
+
 	}
 
 	public void jugarComputadora(Mazo mano, Mazo basuraParametro, Mazo pila) { //podriamos poner dos compus a jugar entre si

@@ -95,52 +95,62 @@ public class Mazo {
 		}
 	}
 
-
+	//primero se da la carta, luego se recorta el mazo
 	public Carta[] darCarta(int n, int posicion){ //recibimos un arreglo de cartas como parametro
 
-		Carta [] arreglo = new Carta [n]; // hacemos una copia del arreglo // puede que no sea necesario
-		Carta [] nuevoArreglo = new Carta [mazo.length-n]; // hacemos una copia del arreglo // puede que no sea necesario	
+		Carta [] arreglo = new Carta [n];
+
+		if(mazo.length>0){
+			// hacemos una copia del arreglo // puede que no sea necesario
+			Carta [] nuevoArreglo = new Carta [mazo.length-n]; // hacemos una copia del arreglo // puede que no sea necesario	
 
 
-		if(posicion==999){
-			// para repartir cartas del mazo
-			for(int i = 0; i < n; i++){
-				arreglo[i] = mazo[i]; // tomamos los primeros elementos
-			}	
+			if(posicion==999){
+				// para repartir cartas del mazo
+				for(int i = 0; i < n; i++){
+					arreglo[i] = mazo[i]; // tomamos los primeros elementos
+				}	
 
-			for(int i = 0; i < mazo.length-n; i++){ // siempre hay que reducir el mazo
-				nuevoArreglo[i] = mazo[i+n];
-			}
+				for(int i = 0; i < mazo.length-n; i++){ // siempre hay que reducir el mazo
+					nuevoArreglo[i] = mazo[i+n];
+				}
 
-		} else{
-			// solo se puede jugar una carta a la vez
-			arreglo[0] = mazo[posicion];
-			int celda = 0;
-			int i = 0;
+			} else{
+				// solo se puede jugar una carta a la vez
+				arreglo[0] = mazo[posicion];
+				int celda = 0;
+				int i = 0;
 
-			while(i<mazo.length){
+				while(i<mazo.length){
 
 
-				if(posicion!=i){
-					nuevoArreglo[celda]= mazo[i];
-					i++;
-					celda++;
+					if(posicion!=i){
+						nuevoArreglo[celda]= mazo[i];
+						i++;
+						celda++;
 
-				} else{
-					i++;
-					//nuevoArreglo[celda]= mazo[i];
+					} else{
+						i++;
+						//nuevoArreglo[celda]= mazo[i];
+					}
+
+
+				}
+					
 				}
 
 
-			}
-				
+			mazo = nuevoArreglo;
+
+			} else {
+				System.out.println("No hay cartas para dar");
 			}
 
 
-		mazo = nuevoArreglo;
 
 		return arreglo;
 	}
+
 	
 	public void recibirCarta(Carta[] arregloParametro){
 		//Carta [] arreglo = new Carta [n]
@@ -224,13 +234,18 @@ public class Mazo {
 		String colorCarta1 = carta1.getColor();
 
 		boolean test = ( 
-			( carta1.getColor()=="Negro" ) || 
+			( colorCarta1=="Negro" ) || 
 			( colorUltimaCarta.equals(colorCarta1) ) || // descubri esto despues de muchos errores
 			( ultimaCarta.getId()==carta1.getId() )  // no hace falta hacer todo el switch a string si ya tenemos el id
 			) ;
 		return test;
 
+	}
 
+	public boolean esCartaEspecial(Carta ultimaCarta){ //queremos ver si carta1 es valida
+
+		boolean test = ultimaCarta.getColor()=="Negro"; 
+		return test;
 
 	}
 
