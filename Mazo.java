@@ -24,7 +24,7 @@ public class Mazo {
 		} else if (numero == 3){
 			color = "Naranja"; 
 		} else {
-			color = "Negro" ; //las cartas especiales, es un valor arbitrario para identificarlas
+			color = "Negro" ; //las cartas especiales, es un valor arbitrario
 		}
 	return color;
 	}
@@ -41,7 +41,7 @@ public class Mazo {
 
 	
 	public void generarMazo (){ //generar mazo
-		mazo = new Carta[72];
+		mazo = new Carta[88];
 
 		//mazo[0] = new Carta(1,"A");
 		int celda = 0;
@@ -50,23 +50,23 @@ public class Mazo {
 			for(int j = 0 ; j < 4 ; j++){ // 4 colores para las cartas basicas
 				for(int i = 0; i <= 8; i++){
 					//Carta carta = new Carta(i, obtenerPalo(j));
-					mazo[celda] = new Carta(i, obtenerColor(j));
+					mazo[celda] = new Carta(i, obtenerColor(j),false); //no son cartas especiales
 					celda++;
 					//System.out.println(celda);
 				}
 			}
 
 		}
-		/*
+		
 		celda = 72;
 		for(int j = 0 ; j < 4 ; j++){ // 4 artas por tipo
 			for(int i = 9; i <= 12; i++){
-				//Carta carta = new Carta(i, obtenerPalo(j));
-				mazo[celda] = new Carta(i, "Negro");
+				//Carta carta = new Carta(i, obtenerPalo(j), true);
+				mazo[celda] = new Carta(i, "Negro",true);
 				celda++;
 			}	
 		}
-		*/
+		
 	
 	}
 
@@ -217,7 +217,7 @@ public class Mazo {
 			ultimaCarta = null;
 		} else {
 
-			ultimaCarta = mazo[mazo.length-1]; //.toString()
+			ultimaCarta = mazo[mazo.length-1];
 
 
 		}
@@ -232,9 +232,10 @@ public class Mazo {
 
 		String colorUltimaCarta = ultimaCarta.getColor();
 		String colorCarta1 = carta1.getColor();
+		boolean esEspecial = carta1.getEsEspecial();
 
 		boolean test = ( 
-			( colorCarta1=="Negro" ) || 
+			( esEspecial==true ) || 
 			( colorUltimaCarta.equals(colorCarta1) ) || // descubri esto despues de muchos errores
 			( ultimaCarta.getId()==carta1.getId() )  // no hace falta hacer todo el switch a string si ya tenemos el id
 			) ;
@@ -242,10 +243,17 @@ public class Mazo {
 
 	}
 
-	public boolean esCartaEspecial(Carta ultimaCarta){ //queremos ver si carta1 es valida
+	public boolean esCartaEspecial(Carta carta){ //queremos ver si una carta del mazo es especial
 
-		boolean test = ultimaCarta.getColor()=="Negro"; 
+		boolean test = carta.getEsEspecial(); 
 		return test;
+
+	}
+
+	public void cambiarColor(Carta carta, String color){ //queremos ver si una carta del mazo es especial
+
+		carta.setColor(color); // no importa si le caemos encima al color de la carta especial
+		System.out.println("La siguiente carta debe ser color: " + color);
 
 	}
 

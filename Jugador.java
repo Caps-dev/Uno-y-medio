@@ -39,11 +39,15 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 		boolean esCartaValida = false;
 		boolean esCartaEspecial = false;
 		// comer una carta al inicio del turno
+		Interfaz interfaz = new Interfaz();   
+
 		do {
 
 			if (mano.getCartaValida(basuraParametro.getUltimaCarta()).length > 0) {
 
 				posicion = inputJugador(nombreJ,mano,basuraParametro);
+				basuraParametro.recibirCarta(mano.darCarta(1, posicion)); // aqui tiramos la carta a la basuraParametro
+
 
 				//aqui verificamos si la carta valida dada por el usuario es especial
 
@@ -51,9 +55,13 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 
 				// si es especial vamos a invocar metodos de cartas especiales
 				if(esCartaEspecial){
+					//ya que el color de la carta especial es arbitrario lo podemos cambiar 
+					String color = interfaz.escogerColor(nombreJ);
+					mano.cambiarColor(basuraParametro.getUltimaCarta(),color);
+
+					turno = false; // el turno cambia a falso para que la siguiente persona siga jugando
 
 				} else{ // si no, va a dar una carta a la pila de basura (juega la carta)
-					basuraParametro.recibirCarta(mano.darCarta(1, posicion)); // aqui tiramos la carta a la basuraParametro
 					turno = false; // el turno cambia a falso para que la siguiente persona siga jugando
 				}
 
@@ -68,15 +76,14 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 
 				}
 													
-			} 
-			/* else{
+			} else {
 
 				System.out.println( nombreJ+  " no tiene cartas validas para jugar, come" + comerEspecial);
 				mano.recibirCarta(pila.darCarta(comerEspecial, 999));// en el caso de que la persona no tenga cartas validas para
 															// jugar se le otorga una directamente hasta que pueda jugar
 
 			}
-			*/
+			
 
 		} while (turno == true);
 

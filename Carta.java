@@ -4,16 +4,22 @@ public class Carta {
    	private int id; // un identificador numerico para cada carta
    	private String color; // un atributo de tipo texto que contiene el color
    	private String simbolo;  // esto contiene el numero de la carta o el texto especial de la carta
+   	private boolean esEspecial;
 
-   	public Carta (int idParametro, String colorParametro){
+   	public Carta (int idParametro, String colorParametro, boolean esEspecialParametro){
    		//System.out.println("-> Se invoca al constructor que recibe el numero y el palo");
    		id = idParametro;
    		color = colorParametro;
+   		esEspecial = esEspecialParametro;
    	}
 
 
    	public int getId(){
    		return id;
+   	}
+
+   	public boolean getEsEspecial(){
+   		return esEspecial; // si bien el id se puede usar para identificar cartas especiales, este metodo da mas transparencia
    	}
 
 
@@ -61,7 +67,7 @@ public class Carta {
 		return color;
 	}
 
-	
+
 	public void setColor(String colorPar){ //principalmente hago este metodo para las cartas especiales donde la gente escoge el color que quiere que se juego
 		color = colorPar;
 

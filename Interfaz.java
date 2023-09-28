@@ -35,11 +35,11 @@ public class Interfaz {
 			// necesito que esto me devuelva un numero de 0 a n que represente la posicion
 			// de la carta dentro del array
 			// pero necesito que me imprima en si los valores de las cartas
-			colorEscogido = String.valueOf(JOptionPane.showInputDialog(null, "seleccione un color", tituloCuadro,
+			colorEscogido = String.valueOf(JOptionPane.showInputDialog(null, "Escoja un color para  jugar el siguiente turno", tituloCuadro,
 					JOptionPane.QUESTION_MESSAGE, null, colores, colores[0])); // cartas[0] es el valor por defecto
 		} while (colorEscogido == "null"); // el boton de cancelar no funciona porque esto esta dentro de un while CORREGIR
 
-		System.out.println(tituloCuadro + " escoge el color: " + colorEscogido);
+		//System.out.println(tituloCuadro + " escoge el color: " + colorEscogido);
 
 		//int posicion = mazoParametro.getPosicionCarta(cartas, opcion);
 		return colorEscogido;
