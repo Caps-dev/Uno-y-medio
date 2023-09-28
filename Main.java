@@ -22,18 +22,20 @@ public class Main {
 		// System.out.println(pila);
 		System.out.println("----------------");
 		// buscar la forma de quitar cosas de main y meterlas en la clase juego
-		mano1.recibirCarta(pila.darCarta(70, 999)); // cuando se da una carta esta carta se quita del objeto que da la
+		mano1.recibirCarta(pila.darCarta(10, 999)); // cuando se da una carta esta carta se quita del objeto que da la
 													// carta //999 significa que no importa el orden
-		mano2.recibirCarta(pila.darCarta(1, 999)); // cuando se da una carta esta carta se quita del objeto que da la
+		mano2.recibirCarta(pila.darCarta(10, 999)); // cuando se da manuna carta esta carta se quita del objeto que da la
 													// carta
-		basura.recibirCarta(pila.darCarta(1, 999));// se activa la basura para saber con cual carta inicia el juego // hacemos esto para no dar ventaja a un jugador
+		basura.recibirCarta(pila.darCarta(15, 999));// se activa la basura para saber con cual carta inicia el juego // hacemos esto para no dar ventaja a un jugador
 
 		System.out.println("mano1------------"); // for dev purposes
-
 		System.out.println(mano1);
-		System.out.println("mano2------------"); // for dev purposes
 
+		System.out.println("mano2------------"); // for dev purposes
 		System.out.println(mano2);
+
+		System.out.println("basura------------"); // for dev purposes
+		System.out.println(basura);
 
 		//System.out.println(""+mano2.getTamanio());
 

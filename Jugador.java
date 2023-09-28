@@ -11,21 +11,26 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
    		nombreJugador = nombreJugador;
    	}
 	*/	
-   	public int inputJugador(String nombreJ, Mazo mano, Mazo basuraParametro){ //! Hace cumplir las reglas para jugadores humanos
-
+   	public int inputJugador(String nombreJ, Mazo mano,  Mazo basuraParametro, boolean esEspecial){ //! Hace cumplir las reglas para jugadores humanos
+   		//por defecto la carta no va a ser valida pero lo vamos a especificar como un input que se puede cambiar
    		Interfaz interfaz = new Interfaz();   
-   		int posicion=0;			
-	   	boolean esCartaValida = false;
+   		int posicion=0;
+   		boolean esCartaValida = false;
 
-		while(esCartaValida==false){ //mientras no seleccione una carta valida el loop va a seguir
-			posicion = interfaz.escogerCarta(mano, nombreJ, basuraParametro); //devuelve posicion de la carta
+   		if(esEspecial){ // si viene de escogerPila puede escoger y jugar cualquier carta que quiera      
+			posicion = interfaz.escogerCarta(mano, nombreJ); //devuelve posicion de la carta
+   		} else {
+			while(esCartaValida==false){ //mientras no seleccione una carta valida el loop va a seguir
+				posicion = interfaz.escogerCarta(mano, nombreJ); //devuelve posicion de la carta
 
-			esCartaValida = mano.esCartaValida(mano.getMazo()[posicion],basuraParametro.getUltimaCarta());
-			if (esCartaValida==false){ //darle chance a la persona de que escoja
-				interfaz.mostrarTexto("Favor use una carta valida","Atencion");
-			}
+				esCartaValida = mano.esCartaValida(mano.getMazo()[posicion],basuraParametro.getUltimaCarta());
+				if (esCartaValida==false){ //darle chance a la persona de que escoja
+					interfaz.mostrarTexto("Favor use una carta valida","Atencion");
+				}
 		}
 
+   		}
+	   	
 		return posicion;
 
    	}
@@ -41,25 +46,33 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 		// comer una carta al inicio del turno
 		Interfaz interfaz = new Interfaz();   
 
-		do {
+		do { // seria bueno intentar separar esto en varios metodos
 
 			if (mano.getCartaValida(basuraParametro.getUltimaCarta()).length > 0) {
 
-				posicion = inputJugador(nombreJ,mano,basuraParametro);
+				posicion = inputJugador(nombreJ,mano,basuraParametro,false);
 				basuraParametro.recibirCarta(mano.darCarta(1, posicion)); // aqui tiramos la carta a la basuraParametro
 
-
-				//aqui verificamos si la carta valida dada por el usuario es especial
-
 				esCartaEspecial = mano.esCartaEspecial(basuraParametro.getUltimaCarta());
+				int id = basuraParametro.getUltimaCarta().getId();
 
 				// si es especial vamos a invocar metodos de cartas especiales
-				if(esCartaEspecial){
+				if(esCartaEspecial&& id != 12){ //12 es buscar en pila
 					//ya que el color de la carta especial es arbitrario lo podemos cambiar 
 					String color = interfaz.escogerColor(nombreJ);
 					mano.cambiarColor(basuraParametro.getUltimaCarta(),color);
 
 					turno = false; // el turno cambia a falso para que la siguiente persona siga jugando
+
+				} else if (esCartaEspecial&& id == 12){ //deberia correrse antes de ingresar a la basura
+					posicion = inputJugador(nombreJ,basuraParametro,basuraParametro,true); //todo recursividad o bien quitar cosas de la pila
+					//al hacer carta valida true cuando se juega buscar en pila se puede tomar cualquier carta 
+					mano.recibirCarta(basuraParametro.darCarta(1, posicion));
+					//maybe el jugador no deberia poder jugar la carta que quiera y deba pensar que carta escoger
+					//p0osicion = inputJugador(nombreJ,mano,basuraParametro,true);
+//					basuraParametro.recibirCarta(mano.darCarta(1, posicion)); //aunque todavia no hemos visto recursividad
+
+
 
 				} else{ // si no, va a dar una carta a la pila de basura (juega la carta)
 					turno = false; // el turno cambia a falso para que la siguiente persona siga jugando

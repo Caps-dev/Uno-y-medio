@@ -8,7 +8,7 @@ public class Interfaz {
 		JOptionPane.showMessageDialog(null, texto, titulo, JOptionPane.INFORMATION_MESSAGE);
 	}
 
-	public int escogerCarta(Mazo mazoParametro, String tituloCuadro, Mazo pilaBasura) { 
+	public int escogerCarta(Mazo mazoParametro, String tituloCuadro) { 
 
 		String cartas[] = mazoParametro.mazoToString(); // ahora esto recibe un mazo generico
 

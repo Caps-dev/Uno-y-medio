@@ -235,6 +235,7 @@ public class Mazo {
 		boolean esEspecial = carta1.getEsEspecial();
 
 		boolean test = ( 
+			( ultimaCarta.getId()==12 ) || //si la ultima carta jugada fue el buscar pila se puede usar cualquier carta porque siempre va linkeada
 			( esEspecial==true ) || 
 			( colorUltimaCarta.equals(colorCarta1) ) || // descubri esto despues de muchos errores
 			( ultimaCarta.getId()==carta1.getId() )  // no hace falta hacer todo el switch a string si ya tenemos el id

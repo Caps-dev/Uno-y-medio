@@ -3,7 +3,6 @@ public class Carta {
 	// Declaracion de atributos:
    	private int id; // un identificador numerico para cada carta
    	private String color; // un atributo de tipo texto que contiene el color
-   	private String simbolo;  // esto contiene el numero de la carta o el texto especial de la carta
    	private boolean esEspecial;
 
    	public Carta (int idParametro, String colorParametro, boolean esEspecialParametro){
@@ -71,10 +70,6 @@ public class Carta {
 	public void setColor(String colorPar){ //principalmente hago este metodo para las cartas especiales donde la gente escoge el color que quiere que se juego
 		color = colorPar;
 
-	}
-
-	public String getSimbolo(){
-		return simbolo;
 	}
 
 
