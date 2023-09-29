@@ -19,6 +19,7 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 																									// jugadores humanos
 		// por defecto la carta no va a ser valida pero lo vamos a especificar como un
 		// input que se puede cambiar
+
 		Interfaz interfaz = new Interfaz();
 		int posicion = 0;
 		boolean esCartaValida = false;
@@ -42,7 +43,7 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 	}
 
 	public void jugar(String nombreJ, Mazo mano, Mazo basuraParametro, Mazo pila,
-			boolean cartaEspecialActiva, int comerEspecial) {
+			boolean cartaEspecialActiva, int comerEspecial, Juego juegoParametro) {
 		int posicion;
 		turno = true;
 		posicion = 0;
@@ -51,7 +52,6 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 		Interfaz interfaz = new Interfaz();
 
 		do { // seria bueno intentar separar esto en varios metodos
-
 			if (mano.getCartaValida(basuraParametro.getUltimaCarta()).length > 0) {
 
 				posicion = inputJugador(nombreJ, mano, basuraParametro, false);
@@ -63,6 +63,7 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 				// si es especial vamos a invocar metodos de cartas especiales
 				if (esCartaEspecial && id != 12) { // 12 es buscar en pila
 					// ya que el color de la carta especial es arbitrario lo podemos cambiar
+					juegoParametro.sumarCartasComer(id);
 					String color = interfaz.escogerColor(nombreJ);
 					mano.cambiarColor(basuraParametro.getUltimaCarta(), color);
 
@@ -82,6 +83,12 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 					// hemos visto recursividad
 
 				} else { // si no, va a dar una carta a la pila de basura (juega la carta)
+					if (juegoParametro.cartasComer > 0) {
+						System.out.println(
+								nombreJ + " comer " + juegoParametro.cartasComer + "\n ----------------------");
+						mano.recibirCarta(pila.darCarta(juegoParametro.cartasComer, 999));
+						juegoParametro.setCartasComer();
+					}
 					turno = false; // el turno cambia a falso para que la siguiente persona siga jugando
 				}
 
@@ -111,7 +118,8 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 	}
 
 	public void jugarComputadora(String nombreJ, Mazo mano, Mazo basuraParametro, Mazo pila,
-			boolean cartaEspecialActiva, int comerEspecial) { // podriamos poner dos compus a jugar
+			boolean cartaEspecialActiva, int comerEspecial, Juego juegoParametro) { // podriamos poner dos compus a
+																					// jugar
 		int posicion;
 		turno = true;
 		posicion = 0;
@@ -142,6 +150,7 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 				// si es especial vamos a invocar metodos de cartas especiales
 				if (esCartaEspecial && id != 12) { // 12 es buscar en pila
 					// ya que el color de la carta especial es arbitrario lo podemos cambiar
+					juegoParametro.sumarCartasComer(id);
 					opcion = (int) (Math.random() * 4); // esto sustituye con el switch sustituye el input para asi la
 														// maquina selecione un color al azar
 					switch (opcion) {
@@ -178,6 +187,12 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 					// hemos visto recursividad
 
 				} else { // si no, va a dar una carta a la pila de basura (juega la carta)
+					if (juegoParametro.cartasComer > 0) {
+						System.out.println(
+								nombreJ + " comer " + juegoParametro.cartasComer + "\n ----------------------");
+						mano.recibirCarta(pila.darCarta(juegoParametro.cartasComer, 999));
+						juegoParametro.setCartasComer();
+					}
 					turno = false; // el turno cambia a falso para que la siguiente persona siga jugando
 				}
 

@@ -8,7 +8,7 @@ public class Main {
 		Interfaz interfaz = new Interfaz();
 		Juego juego = new Juego();
 		Jugador jugador1 = new Jugador();
-		Jugador computadora = new Jugador();
+		Jugador jugador2 = new Jugador();
 		int menu;
 
 		// seria bueno tener una forma de terminar el juego de manera anticipada
@@ -17,11 +17,14 @@ public class Main {
 		// falta hacer la logica de las cartas especiales
 
 		pila.generarMazo();
-		pila.revolver(); // esto se podria meter al metodo de generar mazo cuando ya estemos as seguros
-							// de todo
+		// esto se podria meter al metodo de generar mazo cuando ya estemos as seguros
+		// de todo
 
 		boolean activo = true;
+
 		do {
+
+			pila.revolver();
 			// System.out.println(pila);
 			System.out.println("----------------");
 			// buscar la forma de quitar cosas de main y meterlas en la clase juego
@@ -43,10 +46,12 @@ public class Main {
 						int comerEspecial = 0;
 						System.out.println("Ultima Carta Jugada------------");
 						System.out.println(basura.getUltimaCarta());
-						jugador1.jugar("Jugador 1", mano1, basura, pila, cartaEspecialActiva, comerEspecial);
+						jugador1.jugar("Jugador 1", mano1, basura, pila, cartaEspecialActiva, comerEspecial, juego);
+
 						System.out.println("Ultima Carta Jugada------------");
 						System.out.println(basura.getUltimaCarta());
-						computadora.jugar("Jugador 2", mano2, basura, pila, cartaEspecialActiva, comerEspecial);
+						jugador2.jugar("Jugador 2", mano2, basura, pila, cartaEspecialActiva, comerEspecial, juego);
+
 						activo = juego.finJuego(mano1, mano2, pila, basura);
 					} while (activo == true); // si una de las dos manos se hace cero ya termina
 					break;
@@ -56,11 +61,11 @@ public class Main {
 						int comerEspecial = 0;
 						System.out.println("Ultima Carta Jugada------------");
 						System.out.println(basura.getUltimaCarta());
-						jugador1.jugar("Jugador 1", mano1, basura, pila, cartaEspecialActiva, comerEspecial);
+						jugador1.jugar("Jugador 1", mano1, basura, pila, cartaEspecialActiva, comerEspecial, juego);
 						System.out.println("Ultima Carta Jugada------------");
 						System.out.println(basura.getUltimaCarta());
-						computadora.jugarComputadora("Jugador 2", mano2, basura, pila, cartaEspecialActiva,
-								comerEspecial);
+						jugador2.jugarComputadora("Jugador 2", mano2, basura, pila, cartaEspecialActiva,
+								comerEspecial, juego);
 						activo = juego.finJuego(mano1, mano2, pila, basura);
 					} while (activo == true); // si una de las dos manos se hace cero ya termina
 					break;
@@ -72,6 +77,9 @@ public class Main {
 			} catch (Exception e) {
 				System.out.println();
 			}
+			pila.recibirCarta(basura.darCarta(basura.getMazo().length, 999));
+			pila.recibirCarta(mano2.darCarta(mano2.getMazo().length, 999));
+			pila.recibirCarta(mano1.darCarta(mano1.getMazo().length, 999));
 
 		} while (menu != 3);
 
