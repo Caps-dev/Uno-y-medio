@@ -50,20 +50,23 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 		boolean esCartaEspecial = false;
 		// comer una carta al inicio del turno
 		Interfaz interfaz = new Interfaz();
+		int id = basuraParametro.getUltimaCarta().getId();
 
 		do { // seria bueno intentar separar esto en varios metodos
+
 			if (mano.getCartaValida(basuraParametro.getUltimaCarta()).length > 0) {
 
 				posicion = inputJugador(nombreJ, mano, basuraParametro, false);
 				basuraParametro.recibirCarta(mano.darCarta(1, posicion)); // aqui tiramos la carta a la basuraParametro
 
 				esCartaEspecial = mano.esCartaEspecial(basuraParametro.getUltimaCarta());
-				int id = basuraParametro.getUltimaCarta().getId();
+				id = basuraParametro.getUltimaCarta().getId();
 
 				// si es especial vamos a invocar metodos de cartas especiales
 				if (esCartaEspecial && id != 12) { // 12 es buscar en pila
 					// ya que el color de la carta especial es arbitrario lo podemos cambiar
 					juegoParametro.sumarCartasComer(id);
+
 					String color = interfaz.escogerColor(nombreJ);
 					mano.cambiarColor(basuraParametro.getUltimaCarta(), color);
 
@@ -118,8 +121,9 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 	}
 
 	public void jugarComputadora(String nombreJ, Mazo mano, Mazo basuraParametro, Mazo pila,
-			boolean cartaEspecialActiva, int comerEspecial, Juego juegoParametro) { // podriamos poner dos compus a
-																					// jugar
+			boolean cartaEspecialActiva, int comerEspecial, Juego juegoParametro) { // podriamos poner
+																					// dos compus a
+		// jugar
 		int posicion;
 		turno = true;
 		posicion = 0;
@@ -127,6 +131,7 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 		int opcion = 0;
 		String color = "";
 		// comer una carta al inicio del turno
+		int id = basuraParametro.getUltimaCarta().getId();
 
 		do {
 
@@ -145,11 +150,12 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 				basuraParametro.recibirCarta(mano.darCarta(1, posicion)); // aqui tiramos la carta a la basuraParametro
 
 				esCartaEspecial = mano.esCartaEspecial(basuraParametro.getUltimaCarta());
-				int id = basuraParametro.getUltimaCarta().getId();
+				id = basuraParametro.getUltimaCarta().getId();
 
 				// si es especial vamos a invocar metodos de cartas especiales
 				if (esCartaEspecial && id != 12) { // 12 es buscar en pila
 					// ya que el color de la carta especial es arbitrario lo podemos cambiar
+
 					juegoParametro.sumarCartasComer(id);
 					opcion = (int) (Math.random() * 4); // esto sustituye con el switch sustituye el input para asi la
 														// maquina selecione un color al azar

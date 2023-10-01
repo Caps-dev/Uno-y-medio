@@ -10,6 +10,8 @@ public class Main {
 		Jugador jugador1 = new Jugador();
 		Jugador jugador2 = new Jugador();
 		int menu;
+		boolean cancelar = false;
+		int ultimaCarta;
 
 		// seria bueno tener una forma de terminar el juego de manera anticipada
 		// rendirse pues
@@ -38,34 +40,73 @@ public class Main {
 			basura.recibirCarta(pila.darCarta(1, 999));// se activa la basura para saber con cual carta inicia el juego
 														// //
 														// hacemos esto para no dar ventaja a un jugador
+
+			if (basura.getUltimaCarta().getId() > 8) {
+				basura.recibirCarta(pila.darCarta(1, 999));
+			}
 			menu = interfaz.menu();
 			switch (menu) {
 				case 1:
+					cancelar = false;
 					do {
+
 						boolean cartaEspecialActiva = false;
 						int comerEspecial = 0;
 						System.out.println("Ultima Carta Jugada------------");
 						System.out.println(basura.getUltimaCarta());
-						jugador1.jugar("Jugador 1", mano1, basura, pila, cartaEspecialActiva, comerEspecial, juego);
-
+						cancelar = basura.getUltimaCarta().getId() == 11 && juego.cartasComer == 0;
+						if (cancelar) {
+							System.out.println("jugador 1 tu turno fue cancelado");
+							ultimaCarta = basura.getMazo().length - 2;
+							basura.recibirCarta(basura.darCarta(1, ultimaCarta));
+							cancelar = false;
+						} else {
+							jugador1.jugar("Jugador 1", mano1, basura, pila, cartaEspecialActiva, comerEspecial, juego);
+						}
 						System.out.println("Ultima Carta Jugada------------");
 						System.out.println(basura.getUltimaCarta());
-						jugador2.jugar("Jugador 2", mano2, basura, pila, cartaEspecialActiva, comerEspecial, juego);
+						cancelar = basura.getUltimaCarta().getId() == 11 && juego.cartasComer == 0;
+						if (cancelar) {
+							System.out.println("jugador 2 tu turno fue cancelado");
+							ultimaCarta = basura.getMazo().length - 2;
+							basura.recibirCarta(basura.darCarta(1, ultimaCarta));
+							cancelar = false;
+						} else {
+							jugador2.jugar("Jugador 2", mano2, basura, pila, cartaEspecialActiva, comerEspecial, juego);
+						}
 
 						activo = juego.finJuego(mano1, mano2, pila, basura);
 					} while (activo == true); // si una de las dos manos se hace cero ya termina
 					break;
 				case 2:
+					cancelar = false;
 					do {
 						boolean cartaEspecialActiva = false;
 						int comerEspecial = 0;
 						System.out.println("Ultima Carta Jugada------------");
 						System.out.println(basura.getUltimaCarta());
-						jugador1.jugar("Jugador 1", mano1, basura, pila, cartaEspecialActiva, comerEspecial, juego);
+						cancelar = basura.getUltimaCarta().getId() == 11 && juego.cartasComer == 0;
+						if (cancelar) {
+							System.out.println("jugador 1 tu turno fue cancelado");
+							ultimaCarta = basura.getMazo().length - 2;
+							basura.recibirCarta(basura.darCarta(1, ultimaCarta));
+							cancelar = false;
+						} else {
+							jugador1.jugar("Jugador 1", mano1, basura, pila, cartaEspecialActiva, comerEspecial, juego);
+						}
 						System.out.println("Ultima Carta Jugada------------");
 						System.out.println(basura.getUltimaCarta());
-						jugador2.jugarComputadora("Jugador 2", mano2, basura, pila, cartaEspecialActiva,
-								comerEspecial, juego);
+						cancelar = basura.getUltimaCarta().getId() == 11 && juego.cartasComer == 0;
+						if (cancelar) {
+							System.out.println("jugador 2 tu turno fue cancelado");
+							ultimaCarta = basura.getMazo().length - 2;
+							basura.recibirCarta(basura.darCarta(1, ultimaCarta));
+							cancelar = false;
+						} else {
+							jugador2.jugarComputadora("Jugador 2", mano2, basura, pila, cartaEspecialActiva,
+									comerEspecial, juego);
+						}
+
 						activo = juego.finJuego(mano1, mano2, pila, basura);
 					} while (activo == true); // si una de las dos manos se hace cero ya termina
 					break;
