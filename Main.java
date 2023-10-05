@@ -40,6 +40,16 @@ public class Main {
 			basura.recibirCarta(pila.darCarta(1, 999));// se activa la basura para saber con cual carta inicia el juego
 														// //
 														// hacemos esto para no dar ventaja a un jugador
+			/*
+			 * System.out.println("mano1------------"); // for dev purposes
+			 * System.out.println(mano1);
+			 * 
+			 * System.out.println("mano2------------"); // for dev purposes
+			 * System.out.println(mano2);
+			 * 
+			 * System.out.println("basura------------"); // for dev purposes
+			 * System.out.println(basura);
+			 */
 
 			if (basura.getUltimaCarta().getId() > 8) {
 				basura.recibirCarta(pila.darCarta(1, 999));
@@ -54,7 +64,9 @@ public class Main {
 						int comerEspecial = 0;
 						System.out.println("Ultima Carta Jugada------------");
 						System.out.println(basura.getUltimaCarta());
-						cancelar = basura.getUltimaCarta().getId() == 11 && juego.cartasComer == 0;
+						cancelar = basura.getUltimaCarta().getId() == 11 && juego.cartasComer == 0
+								&& (basura.getMazo()[(basura.getMazo().length - 2)].getId() != 10
+										&& basura.getMazo()[(basura.getMazo().length - 2)].getId() != 9);
 						if (cancelar) {
 							System.out.println("jugador 1 tu turno fue cancelado");
 							ultimaCarta = basura.getMazo().length - 2;
@@ -85,7 +97,9 @@ public class Main {
 						int comerEspecial = 0;
 						System.out.println("Ultima Carta Jugada------------");
 						System.out.println(basura.getUltimaCarta());
-						cancelar = basura.getUltimaCarta().getId() == 11 && juego.cartasComer == 0;
+						cancelar = basura.getUltimaCarta().getId() == 11 && juego.cartasComer == 0
+								&& (basura.getMazo()[(basura.getMazo().length - 2)].getId() != 10
+										&& basura.getMazo()[(basura.getMazo().length - 2)].getId() != 9);
 						if (cancelar) {
 							System.out.println("jugador 1 tu turno fue cancelado");
 							ultimaCarta = basura.getMazo().length - 2;
@@ -123,15 +137,6 @@ public class Main {
 			pila.recibirCarta(mano1.darCarta(mano1.getMazo().length, 999));
 
 		} while (menu != 3);
-
-		// System.out.println("mano1------------"); // for dev purposes
-		// System.out.println(mano1);
-
-		// System.out.println("mano2------------"); // for dev purposes
-		// System.out.println(mano2);
-
-		// System.out.println("basura------------"); // for dev purposes
-		// System.out.println(basura);
 
 		// System.out.println(""+mano2.getTamanio());
 

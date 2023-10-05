@@ -78,6 +78,13 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 																								// la pila
 					// al hacer carta valida true cuando se juega buscar en pila se puede tomar
 					// cualquier carta
+					basuraParametro.recibirCarta(basuraParametro.darCarta(1, basuraParametro.getMazo().length - 2));
+
+					/*
+					 * mano.cambiarColor(basuraParametro.getUltimaCarta(),
+					 * basuraParametro.getMazo()[(basuraParametro.getMazo().length -
+					 * 2)].getColor());
+					 */
 					mano.recibirCarta(basuraParametro.darCarta(1, posicion));
 					// maybe el jugador no deberia poder jugar la carta que quiera y deba pensar que
 					// carta escoger
@@ -90,7 +97,7 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 						System.out.println(
 								nombreJ + " comer " + juegoParametro.cartasComer + "\n ----------------------");
 						mano.recibirCarta(pila.darCarta(juegoParametro.cartasComer, 999));
-						juegoParametro.setCartasComer();
+						juegoParametro.resetCartasComer();
 					}
 					turno = false; // el turno cambia a falso para que la siguiente persona siga jugando
 				}
@@ -197,7 +204,7 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 						System.out.println(
 								nombreJ + " comer " + juegoParametro.cartasComer + "\n ----------------------");
 						mano.recibirCarta(pila.darCarta(juegoParametro.cartasComer, 999));
-						juegoParametro.setCartasComer();
+						juegoParametro.resetCartasComer();
 					}
 					turno = false; // el turno cambia a falso para que la siguiente persona siga jugando
 				}

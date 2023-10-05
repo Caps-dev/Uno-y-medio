@@ -43,7 +43,7 @@ public class Juego { // ! Clase juego almacena variables y metodos necesarios pa
 
 	}
 
-	public void setCartasComer() {
+	public void resetCartasComer() {
 		cartasComer = 0;
 	}
 
