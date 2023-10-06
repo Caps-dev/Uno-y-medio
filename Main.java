@@ -40,16 +40,14 @@ public class Main {
 			basura.recibirCarta(pila.darCarta(1, 999));// se activa la basura para saber con cual carta inicia el juego
 														// //
 														// hacemos esto para no dar ventaja a un jugador
-			/*
-			 * System.out.println("mano1------------"); // for dev purposes
-			 * System.out.println(mano1);
-			 * 
-			 * System.out.println("mano2------------"); // for dev purposes
-			 * System.out.println(mano2);
-			 * 
-			 * System.out.println("basura------------"); // for dev purposes
-			 * System.out.println(basura);
-			 */
+			System.out.println("mano1------------"); // for dev purposes
+			System.out.println(mano1);
+
+			System.out.println("mano2------------"); // for dev purposes
+			System.out.println(mano2);
+
+			System.out.println("basura------------"); // for dev purposes
+			System.out.println(basura);
 
 			if (basura.getUltimaCarta().getId() > 8) {
 				basura.recibirCarta(pila.darCarta(1, 999));
@@ -73,7 +71,8 @@ public class Main {
 							basura.recibirCarta(basura.darCarta(1, ultimaCarta));
 							cancelar = false;
 						} else {
-							jugador1.jugar("Jugador 1", mano1, basura, pila, cartaEspecialActiva, comerEspecial, juego);
+							jugador1.jugar("Jugador 1", mano1, basura, pila, cartaEspecialActiva, comerEspecial, juego,
+									mano2);
 						}
 						System.out.println("Ultima Carta Jugada------------");
 						System.out.println(basura.getUltimaCarta());
@@ -84,7 +83,8 @@ public class Main {
 							basura.recibirCarta(basura.darCarta(1, ultimaCarta));
 							cancelar = false;
 						} else {
-							jugador2.jugar("Jugador 2", mano2, basura, pila, cartaEspecialActiva, comerEspecial, juego);
+							jugador2.jugar("Jugador 2", mano2, basura, pila, cartaEspecialActiva, comerEspecial, juego,
+									mano1);
 						}
 
 						activo = juego.finJuego(mano1, mano2, pila, basura);
@@ -106,7 +106,8 @@ public class Main {
 							basura.recibirCarta(basura.darCarta(1, ultimaCarta));
 							cancelar = false;
 						} else {
-							jugador1.jugar("Jugador 1", mano1, basura, pila, cartaEspecialActiva, comerEspecial, juego);
+							jugador1.jugar("Jugador 1", mano1, basura, pila, cartaEspecialActiva, comerEspecial, juego,
+									mano2);
 						}
 						System.out.println("Ultima Carta Jugada------------");
 						System.out.println(basura.getUltimaCarta());

@@ -23,7 +23,7 @@ Este juego Uno y medio incorpora las siguientes reglas personalizadas:
 7. Si un jugador no tiene cartas válidas para jugar, se le asignan automáticamente cartas hasta que tenga una válida.
 8. El juego termina cuando un jugador se queda sin cartas.
 9. La carta "Buscar en pila" permite a un jugador buscar entre las cartas que se han jugado y elegir una para jugar. El uso de esta carta no cuenta como parte del turno del jugador, por lo que el jugador puede jugar la carta especial o buscar una carta y luego jugar la carta que encontró en el montón. Se debe tomar en cuenta que se debe de jugar con la ultima carta con color y numero. En caso de ser una carta "Comer" podrá jugar una carta del color seleccionado por el jugador anterior
-10. La carta "Cancelar" puede cancelar cualquier secuencia de cartas "Comer" o, si no hay secuencia, saltar el turno del siguiente jugador.
+10. La carta "Cancelar" puede cancelar cualquier secuencia de cartas "Comer" o, si no hay secuencia, saltar el turno del siguiente jugador. Si hay en juego una carta 'buscar en pila' se tendra la opcion de tirar la carta cancelar para que el jugador no la pueda utilizar
 
 ## Diagrama de Clases
 Hemos incluido un diagrama de clases que representa la lógica del juego y los procesos de toma de decisiones.

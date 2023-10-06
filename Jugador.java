@@ -43,11 +43,12 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 	}
 
 	public void jugar(String nombreJ, Mazo mano, Mazo basuraParametro, Mazo pila,
-			boolean cartaEspecialActiva, int comerEspecial, Juego juegoParametro) {
+			boolean cartaEspecialActiva, int comerEspecial, Juego juegoParametro, Mazo manoRival) {
 		int posicion;
 		turno = true;
 		posicion = 0;
 		boolean esCartaEspecial = false;
+
 		// comer una carta al inicio del turno
 		Interfaz interfaz = new Interfaz();
 		int id = basuraParametro.getUltimaCarta().getId();
@@ -72,20 +73,41 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 
 					turno = false; // el turno cambia a falso para que la siguiente persona siga jugando
 
-				} else if (esCartaEspecial && id == 12) { // deberia correrse antes de ingresar a la basura
+				} else if (esCartaEspecial && id == 12) {
+					boolean cancelarBP = false; // deberia correrse antes de ingresar a la basura
 					posicion = inputJugador(nombreJ, basuraParametro, basuraParametro, true); // todo recursividad o
 																								// bien quitar cosas de
 																								// la pila
 					// al hacer carta valida true cuando se juega buscar en pila se puede tomar
 					// cualquier carta
-					basuraParametro.recibirCarta(basuraParametro.darCarta(1, basuraParametro.getMazo().length - 2));
+					for (int i = 0; i < manoRival.getTamanio(); i++) {
+						if (manoRival.getMazo()[i].getId() == 11) {
+							cancelarBP = interfaz.cancelarBuscarPila();
+							if (cancelarBP) {
+								basuraParametro.recibirCarta(manoRival.darCarta(1, i));
+							}
+							break;
+						}
 
+					}
 					/*
 					 * mano.cambiarColor(basuraParametro.getUltimaCarta(),
 					 * basuraParametro.getMazo()[(basuraParametro.getMazo().length -
 					 * 2)].getColor());
 					 */
-					mano.recibirCarta(basuraParametro.darCarta(1, posicion));
+					if (cancelarBP == false) {
+						mano.recibirCarta(basuraParametro.darCarta(1, posicion));
+					}
+
+					if (basuraParametro.getTamanio() > 3
+							&& basuraParametro.getMazo()[basuraParametro.getTamanio() - 2].getEsEspecial() == false) {
+						basuraParametro.recibirCarta(basuraParametro.darCarta(1, basuraParametro.getMazo().length - 3));
+					} else if (basuraParametro.getTamanio() >= 2
+							&& basuraParametro.getMazo()[basuraParametro.getTamanio() - 2].getEsEspecial() == false) {
+						basuraParametro.recibirCarta(basuraParametro.darCarta(1, basuraParametro.getMazo().length - 2));
+					} else {
+						mano.cambiarColor(basuraParametro.getUltimaCarta(), interfaz.escogerColor(nombreJ));
+					}
 					// maybe el jugador no deberia poder jugar la carta que quiera y deba pensar que
 					// carta escoger
 					// p0osicion = inputJugador(nombreJ,mano,basuraParametro,true);

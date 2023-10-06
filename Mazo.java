@@ -219,10 +219,16 @@ public class Mazo {
 
 		boolean test = ( // si la ultima carta jugada fue el buscar pila se puede usar
 							// cualquier carta porque siempre va linkeada
-		(esEspecial == true && ultimaCarta.getId() <= carta1.getId()) ||
+		((esEspecial == true) && (esEspecial && ultimaCarta.getId() <= carta1.getId())) ||
 				(colorUltimaCarta.equals(colorCarta1)) || // descubri esto despues de muchos errores
-				(ultimaCarta.getId() == carta1.getId()) // no hace falta hacer todo el switch a string si ya tenemos el
-														// id
+				(ultimaCarta.getId() == carta1.getId()) // no
+														// hace
+														// falta
+														// hacer
+		// todo el switch a
+		// string si ya
+		// tenemos el
+		// id
 		);
 		return test;
 
