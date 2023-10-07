@@ -22,8 +22,8 @@ Este juego Uno y medio incorpora las siguientes reglas personalizadas:
 6. Si un jugador utiliza una carta "Comer 2", el siguiente jugador debe robar dos cartas del mazo a menos que tenga una carta "Comer 2", "Cancelar" o "Buscar en pila". Si se juega una carta "Comer 2", el jugador siguiente debe tomar 2 cartas a menos que tenga una carta "Cancelar" o "Comer 2", y así sucesivamente. Las cartas "Comer" de mayor valor se pueden jugar sobre las de menor valor, pero no al revés. Por ejemplo, si un jugador juega una "Comer 3", el siguiente jugador no puede jugar una "Comer 2".
 7. Si un jugador no tiene cartas válidas para jugar, se le asignan automáticamente cartas hasta que tenga una válida.
 8. El juego termina cuando un jugador se queda sin cartas.
-9. La carta "Buscar en pila" permite a un jugador buscar entre las cartas que se han jugado y elegir una para jugar. El uso de esta carta no cuenta como parte del turno del jugador, por lo que el jugador puede jugar la carta especial o buscar una carta y luego jugar la carta que encontró en el montón. Esta carta permite jugar cualquier carta independientemente del color y numero.
-10. La carta "Cancelar" puede cancelar cualquier secuencia de cartas "Comer" o, si no hay secuencia, saltar el turno del siguiente jugador.
+9. La carta "Buscar en pila" permite a un jugador buscar entre las cartas que se han jugado y elegir una para jugar. El uso de esta carta no cuenta como parte del turno del jugador, por lo que el jugador puede jugar la carta especial o buscar una carta y luego jugar la carta que encontró en el montón. Se debe tomar en cuenta que se debe de jugar con la ultima carta con color y numero. En caso de ser una carta "Comer" podrá jugar una carta del color seleccionado por el jugador anterior
+10. La carta "Cancelar" puede cancelar cualquier secuencia de cartas "Comer" o, si no hay secuencia, saltar el turno del siguiente jugador. Si hay en juego una carta 'buscar en pila' se tendra la opcion de tirar la carta cancelar para que el jugador no la pueda utilizar
 
 ## Diagrama de Clases
 Hemos incluido un diagrama de clases que representa la lógica del juego y los procesos de toma de decisiones.
@@ -35,7 +35,7 @@ Diagrama al final del proyecto:
 - [Diagrama de clases Final](https://drive.google.com/file/d/1h24bE74UdMpWEdHauA-qF_4xCFvswLWG/view?usp=drive_link)
 
 ## Diagramas de Flujo
-Hemos incluido diagramas de flujo de los metodos más importantes que representan la lógica del juego y los procesos de toma de decisiones.
+Hemos incluido diagramas de flujo de los métodos más importantes que representan la lógica del juego y los procesos de toma de decisiones.
 
 - [Main](https://drive.google.com/file/d/1HWm2ehOBiA7AVAOxbqkRsFFz_pOOEhI8/view?usp=drive_link)
 - [Jugar](https://drive.google.com/file/d/1bxOCE6OigEe7igBMFGdB4HXN-Z1lYRvv/view?usp=drive_link)

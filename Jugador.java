@@ -3,7 +3,17 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 	// no cambia mucho los contenidos pero mas para una distincion de nomenclatura
 	// que tenga sentido
 
-	boolean turno = true;
+	private boolean turno;
+	private String nombre;
+
+	public Jugador(String nombreParametro){
+		turno = true;
+		nombre = nombreParametro;
+	}
+
+	public String getNombre(){
+		return nombre;
+	}
 
 	/*
 	 * 
@@ -43,16 +53,17 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 	}
 
 	public void jugar(String nombreJ, Mazo mano, Mazo basuraParametro, Mazo pila,
-			boolean cartaEspecialActiva, int comerEspecial, Juego juegoParametro) {
+			boolean cartaEspecialActiva, int comerEspecial, Juego juegoParametro, Mazo manoRival, String nombreRival) { // meter boolean rendirse
 		int posicion;
 		turno = true;
 		posicion = 0;
 		boolean esCartaEspecial = false;
+
 		// comer una carta al inicio del turno
 		Interfaz interfaz = new Interfaz();
 		int id = basuraParametro.getUltimaCarta().getId();
 
-		do { // seria bueno intentar separar esto en varios metodos
+		do {
 
 			if (mano.getCartaValida(basuraParametro.getUltimaCarta()).length > 0) {
 
@@ -64,33 +75,49 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 
 				// si es especial vamos a invocar metodos de cartas especiales
 				if (esCartaEspecial && id != 12) { // 12 es buscar en pila
-					// ya que el color de la carta especial es arbitrario lo podemos cambiar
 					juegoParametro.sumarCartasComer(id);
 
+					// el color de la carta especial es arbitrario entonces lo podemos cambiar
 					String color = interfaz.escogerColor(nombreJ);
 					mano.cambiarColor(basuraParametro.getUltimaCarta(), color);
 
 					turno = false; // el turno cambia a falso para que la siguiente persona siga jugando
 
-				} else if (esCartaEspecial && id == 12) { // deberia correrse antes de ingresar a la basura
-					posicion = inputJugador(nombreJ, basuraParametro, basuraParametro, true); // todo recursividad o
-																								// bien quitar cosas de
-																								// la pila
-					// al hacer carta valida true cuando se juega buscar en pila se puede tomar
-					// cualquier carta
-					mano.recibirCarta(basuraParametro.darCarta(1, posicion));
-					// maybe el jugador no deberia poder jugar la carta que quiera y deba pensar que
-					// carta escoger
-					// p0osicion = inputJugador(nombreJ,mano,basuraParametro,true);
-					// basuraParametro.recibirCarta(mano.darCarta(1, posicion)); //aunque todavia no
-					// hemos visto recursividad
+				} else if (esCartaEspecial && id == 12) { // buscar pila
+					boolean cancelarBP = false; // BP = Buscar en Pila
+					posicion = inputJugador(nombreJ, basuraParametro, basuraParametro, true); 
+
+					if(manoRival.posicionCartaCancelar()>=0){
+						cancelarBP = interfaz.cancelarBuscarPila(nombreRival);
+						if (cancelarBP) {
+								basuraParametro.recibirCarta(manoRival.darCarta(1, manoRival.posicionCartaCancelar()));
+							}
+
+					}
+
+					if (cancelarBP == false) {
+						mano.recibirCarta(basuraParametro.darCarta(1, posicion));
+					}
+
+					// TODO: AGREGAR UNA EXPLICACION DE ESTO
+					if ( (basuraParametro.getTamanio() > 3 ) && basuraParametro.getMazo()[basuraParametro.getTamanio() - 2].getEsEspecial() == false) {
+
+						basuraParametro.recibirCarta(basuraParametro.darCarta(1, basuraParametro.getMazo().length - 3)); // ????
+
+					} else if ( (basuraParametro.getTamanio() >= 2) && basuraParametro.getMazo()[basuraParametro.getTamanio() - 2].getEsEspecial() == false) {
+
+						basuraParametro.recibirCarta(basuraParametro.darCarta(1, basuraParametro.getMazo().length - 2)); // ???
+
+					} else {
+						mano.cambiarColor(basuraParametro.getUltimaCarta(), interfaz.escogerColor(nombreJ));
+					}
 
 				} else { // si no, va a dar una carta a la pila de basura (juega la carta)
-					if (juegoParametro.cartasComer > 0) {
+					if (juegoParametro.cartasComer > 0) { //todo hacer esto un metodo
 						System.out.println(
-								nombreJ + " comer " + juegoParametro.cartasComer + "\n ----------------------");
+								nombreJ + " come " + juegoParametro.cartasComer + "\n ----------------------");
 						mano.recibirCarta(pila.darCarta(juegoParametro.cartasComer, 999));
-						juegoParametro.setCartasComer();
+						juegoParametro.resetCartasComer();
 					}
 					turno = false; // el turno cambia a falso para que la siguiente persona siga jugando
 				}
@@ -183,21 +210,14 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 					opcion = (int) (Math.random() * basuraParametro.getMazo().length);// Seleccionamos y numero al azar
 																						// de la basura para jugar la
 																						// carta.
-					// al hacer carta valida true cuando se juega buscar en pila se puede tomar
-					// cualquier carta
-					mano.recibirCarta(basuraParametro.darCarta(1, posicion));
-					// maybe el jugador no deberia poder jugar la carta que quiera y deba pensar que
-					// carta escoger
-					// p0osicion = inputJugador(nombreJ,mano,basuraParametro,true);
-					// basuraParametro.recibirCarta(mano.darCarta(1, posicion)); //aunque todavia no
-					// hemos visto recursividad
+					mano.recibirCarta(basuraParametro.darCarta(1, posicion)); //TODO: PROBLEMA AQUI
 
 				} else { // si no, va a dar una carta a la pila de basura (juega la carta)
 					if (juegoParametro.cartasComer > 0) {
 						System.out.println(
-								nombreJ + " comer " + juegoParametro.cartasComer + "\n ----------------------");
+								nombreJ + " come " + juegoParametro.cartasComer + "\n ----------------------");
 						mano.recibirCarta(pila.darCarta(juegoParametro.cartasComer, 999));
-						juegoParametro.setCartasComer();
+						juegoParametro.resetCartasComer();
 					}
 					turno = false; // el turno cambia a falso para que la siguiente persona siga jugando
 				}
