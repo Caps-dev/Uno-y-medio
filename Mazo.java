@@ -124,7 +124,6 @@ public class Mazo {
 
 					} else {
 						i++;
-						// nuevoArreglo[celda]= mazo[i];
 					}
 
 				}
@@ -211,24 +210,16 @@ public class Mazo {
 
 	}
 
-	public boolean esCartaValida(Carta carta1, Carta ultimaCarta) { // queremos ver si carta1 es valida
+	public boolean esCartaValida(Carta carta1, Carta ultimaCarta) {
 
 		String colorUltimaCarta = ultimaCarta.getColor();
 		String colorCarta1 = carta1.getColor();
 		boolean esEspecial = carta1.getEsEspecial();
 
-		boolean test = ( // si la ultima carta jugada fue el buscar pila se puede usar
-							// cualquier carta porque siempre va linkeada
+		boolean test = (
 		((esEspecial == true) && (esEspecial && ultimaCarta.getId() <= carta1.getId())) ||
-				(colorUltimaCarta.equals(colorCarta1)) || // descubri esto despues de muchos errores
-				(ultimaCarta.getId() == carta1.getId()) // no
-														// hace
-														// falta
-														// hacer
-		// todo el switch a
-		// string si ya
-		// tenemos el
-		// id
+				(colorUltimaCarta.equals(colorCarta1)) || 
+				(ultimaCarta.getId() == carta1.getId()) 
 		);
 		return test;
 
@@ -306,5 +297,25 @@ public class Mazo {
 
 		return contenido;
 	}
+
+	public int posicionCartaCancelar(){
+
+		int tieneCartaCancelar = -1;
+
+		for (int i=0;i<mazo.length; i++ ){
+
+			if(mazo[i].getId()==11){
+				tieneCartaCancelar = i;
+				break;
+			}
+		
+
+		}
+
+		return tieneCartaCancelar;
+
+	}
+
+
 
 }

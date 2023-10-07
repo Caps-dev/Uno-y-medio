@@ -2,12 +2,39 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 
 public class Interfaz {
+
 	boolean estaActivo;
-	int tipoDeJuego = 0;
 
 	public void mostrarTexto(String texto, String titulo) { // usando esto que vimos en clase
 		JOptionPane.showMessageDialog(null, texto, titulo, JOptionPane.INFORMATION_MESSAGE);
 	}
+
+
+	public boolean nuevaPartida(){
+
+		String jugarDeNuevo = null;	
+		int jugarDeNuevoInt = 2;
+		boolean jugarDeNuevoBool = false;
+
+		jugarDeNuevo = JOptionPane.showInputDialog(null,
+				"Desea jugar de nuevo? Digite el numero segun la opcion: \n1) y\n2) n\n", 
+				"Jugar de nuevo?", JOptionPane.QUESTION_MESSAGE); 
+
+		try{
+			jugarDeNuevoInt = Integer.parseInt(jugarDeNuevo);
+		} catch(Exception e){
+			System.out.println("Error al ingresar el digito. Asumiendo que no se quiere continuar");
+		}
+
+		if(  jugarDeNuevoInt >2 || jugarDeNuevoInt <1  ){
+			System.out.println("Error al ingresar el digito. Asumiendo que no se quiere continuar");
+		} else if(jugarDeNuevoInt == 1) { // cualquier cosa que no sea Y se va a tomar como que no desea continuars
+			jugarDeNuevoBool = true;
+		} 
+		return jugarDeNuevoBool;
+
+	}
+
 
 	public int escogerCarta(Mazo mazoParametro, String tituloCuadro) {
 
@@ -50,30 +77,38 @@ public class Interfaz {
 	}
 
 	public int menu() {
+		String tipoDeJuego = null;	
+		boolean rendirse = false;
+		int tipoDeJuegoInt = 0;	
+
 		do {
 			try {
-				tipoDeJuego = Integer.parseInt(JOptionPane.showInputDialog(null,
-						"Elige una opcion: \n1) jugador vs jugador\n2) jugador vs computadora\n3) salir", // ESTE 3 NO
-																											// HACE
-																											// FALTA
-																											// PORQUE YA
-																											// HAY UN
-																											// BOTON DE
-																											// CANCELAR
-						"Menu Principal", JOptionPane.QUESTION_MESSAGE)); // ADEMAS EL TRES NO HACE NADA //QUITAR EL
+				tipoDeJuego = JOptionPane.showInputDialog(null,
+						"Elige una opcion: \n1) jugador vs jugador\n2) jugador vs computadora\n", 
+						"Menu Principal", JOptionPane.QUESTION_MESSAGE); 
+
+				if(tipoDeJuego==null){ // boton cancelar
+					System.out.println("Saliendo");
+					rendirse = true;
+
+				} else {
+					tipoDeJuegoInt = Integer.parseInt(tipoDeJuego);
+
+				}
 																			// TRES
 			} catch (Exception e) { // EL BOTONN DE CANCELAR NO HACE NADA POR ESTAR DENTRO DE UN CICLO // ARREGLAR
 				JOptionPane.showMessageDialog(null, "Error al digitar el digito");
 			}
-		} while (tipoDeJuego < 1 || tipoDeJuego > 3);
+		} while ( (tipoDeJuegoInt < 1 || tipoDeJuegoInt > 2) && rendirse==false);
 
-		return tipoDeJuego;
+
+		return tipoDeJuegoInt;
 
 	}
 
-	public boolean cancelarBuscarPila() {
+	public boolean cancelarBuscarPila(String nombreJugador) {
 		boolean cancelar = true;
-		int opcion = JOptionPane.showConfirmDialog(null, "desea cancelar la carta 'buscar en pila'", "Alerta!",
+		int opcion = JOptionPane.showConfirmDialog(null, "desea cancelar la carta 'buscar en pila' jugada por su oponente", nombreJugador,
 				JOptionPane.YES_NO_OPTION);
 		if (opcion == 1) {
 			cancelar = false;
