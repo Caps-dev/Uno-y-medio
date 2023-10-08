@@ -81,7 +81,7 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 
 					// el color de la carta especial es arbitrario entonces lo podemos cambiar
 					String color = interfaz.escogerColor(nombreJ);
-					mano.cambiarColor(basuraParametro.getUltimaCarta(), color);
+					mano.setColor(basuraParametro.getUltimaCarta(), color);
 
 					turno = false; // el turno cambia a falso para que la siguiente persona siga jugando
 
@@ -111,7 +111,7 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 					basuraParametro.recibirCarta(basuraParametro.darCarta(1, basuraParametro.getMazo().length - 2)); // ???
 
 				} else {
-					mano.cambiarColor(basuraParametro.getUltimaCarta(), interfaz.escogerColor(nombreJ));
+					mano.setColor(basuraParametro.getUltimaCarta(), interfaz.escogerColor(nombreJ));
 				}
 
 
@@ -165,7 +165,7 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 
 		do {
 
-			if (mano.getCartaValida(basuraParametro.getUltimaCarta()).length > 0) {
+			if (  mano.getCartaValida(basuraParametro.getUltimaCarta()).length > 0) {
 				opcion = (int) (Math.random() * mano.getCartaValida(basuraParametro.getUltimaCarta()).length); // sacamos
 																												// una
 																												// carta
@@ -205,7 +205,7 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 							break;
 					}// el switch hace que se elija un color aleatorio
 
-					mano.cambiarColor(basuraParametro.getUltimaCarta(), color);
+					mano.setColor(basuraParametro.getUltimaCarta(), color);
 
 					turno = false; // el turno cambia a falso para que la siguiente persona siga jugando
 

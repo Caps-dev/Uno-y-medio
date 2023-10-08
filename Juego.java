@@ -92,6 +92,7 @@ public class Juego { // ! Clase juego almacena variables y metodos necesarios pa
 
 			System.out.println("Ultima Carta Jugada------------");
 			System.out.println(basura.getUltimaCarta());
+			
 			cancelar = basura.getUltimaCarta().getId() == 11 && juego.cartasComer == 0;
 
 			if (cancelar) {
