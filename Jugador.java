@@ -53,7 +53,8 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 	}
 
 	public void jugar(String nombreJ, Mazo mano, Mazo basuraParametro, Mazo pila,
-			boolean cartaEspecialActiva, int comerEspecial, Juego juegoParametro, Mazo manoRival, String nombreRival) { // meter boolean rendirse
+			boolean cartaEspecialActiva, int comerEspecial, // TODO: CREO QUE ESTOS NO ESTAN HACIENDO NADA
+			Juego juegoParametro, Mazo manoRival, String nombreRival) { // meter boolean rendirse
 		int posicion;
 		turno = true;
 		posicion = 0;
@@ -65,7 +66,7 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 
 		do {
 
-			if (mano.getCartaValida(basuraParametro.getUltimaCarta()).length > 0) {
+			if (mano.getCartaValida(basuraParametro.getUltimaCarta()).length > 0) { // si tiene cartas validas
 
 				posicion = inputJugador(nombreJ, mano, basuraParametro, false);
 				basuraParametro.recibirCarta(mano.darCarta(1, posicion)); // aqui tiramos la carta a la basuraParametro
@@ -75,7 +76,7 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 
 				// si es especial vamos a invocar metodos de cartas especiales
 				if (esCartaEspecial && id != 12) { // 12 es buscar en pila
-					juegoParametro.sumarCartasComer(id);
+					juegoParametro.sumarCartasComer(id); // TODO CREO QUE AQUI SE PODRIA HACER  LA ASIGNACION A COMERESPECIAL?
 
 					// el color de la carta especial es arbitrario entonces lo podemos cambiar
 					String color = interfaz.escogerColor(nombreJ);
@@ -87,12 +88,11 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 					boolean cancelarBP = false; // BP = Buscar en Pila
 					posicion = inputJugador(nombreJ, basuraParametro, basuraParametro, true); 
 
-					if(manoRival.posicionCartaCancelar()>=0){
+					if(manoRival.posicionCartaCancelar()>=0){ // si el rival tiene una cartaCancelar
 						cancelarBP = interfaz.cancelarBuscarPila(nombreRival);
 						if (cancelarBP) {
 								basuraParametro.recibirCarta(manoRival.darCarta(1, manoRival.posicionCartaCancelar()));
 							}
-
 					}
 
 					if (cancelarBP == false) {
@@ -112,7 +112,7 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 						mano.cambiarColor(basuraParametro.getUltimaCarta(), interfaz.escogerColor(nombreJ));
 					}
 
-				} else { // si no, va a dar una carta a la pila de basura (juega la carta)
+				} else { // si no juega una carta especial, la carta normal se pone en la basura
 					if (juegoParametro.cartasComer > 0) { //todo hacer esto un metodo
 						System.out.println(
 								nombreJ + " come " + juegoParametro.cartasComer + "\n ----------------------");
@@ -134,7 +134,7 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 
 				}
 
-			} else {
+			} else { // TODO: creo que esto se podria meter arriba con algunas condiciones para que la persona coma si no tiene una carta que pueda jugar
 
 				System.out.println(nombreJ + " no tiene cartas validas para jugar, come" + comerEspecial);
 				mano.recibirCarta(pila.darCarta(comerEspecial, 999));// en el caso de que la persona no tenga cartas

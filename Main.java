@@ -15,10 +15,6 @@ public class Main {
 
 		pila.generarMazo();
 
-
-
-		//menu = interfaz.menu();
-
 		do {
 			juego.setNuevaPartida(false);
 			menu = interfaz.menu();
@@ -66,11 +62,6 @@ public class Main {
 			} catch (Exception e) {
 				System.out.println();
 			}
-			/*
-			pila.recibirCarta(basura.darCarta(basura.getMazo().length, 999));
-			pila.recibirCarta(mano2.darCarta(mano2.getMazo().length, 999));
-			pila.recibirCarta(mano1.darCarta(mano1.getMazo().length, 999));
-			*/
 
 		} while ((menu !=0 && juego.getEstado() == true) ||   juego.getNuevaPartida() ) ;
 
