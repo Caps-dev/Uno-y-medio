@@ -253,7 +253,6 @@ public class Mazo {
 	}
 
 	/*! \brief Dada la ultima carta jugada verifica si una carta es valida para jugar. Retorna true si la carta es valida, false si no.
-	 * 
 	 * \param Carta carta que se quiere jugar.
 	 * \param Carta ultima carta jugada.
 	 */
@@ -275,7 +274,6 @@ public class Mazo {
 	/*! \brief Dada una carta verifica si es una carta especial o no (Come2, Come3, Cancelar, Buscar en Pila) 
 	 * 
 	 * \param Carta carta que se quiere verificar si es especial o no.
-
 	 * */
 	public boolean esCartaEspecial(Carta carta) {
 
@@ -290,7 +288,6 @@ public class Mazo {
 	 * 
 	 * \param Carta carta que se le quiere cambiar el color.
 	 * \param String color que se le quiere dar a la carta.
-
 	 * */
 	public void setColor(Carta carta, String color) {
 
@@ -314,7 +311,7 @@ public class Mazo {
 
 		while (i < mazo.length) { //un ciclo para contar las cartas validas.
 			if (esCartaValida(mazo[i], ultimaCartaParam)) {
-				
+
 				cartasValidas++;
 				i++;
 
