@@ -1,28 +1,35 @@
+//! \class Clase Jugador Jugadores del juego de uno y medio
+/*! Todo las acciones que puede realizar un jugador como tirar cartas, comer cartas, etc.
+ */
 public class Jugador { // al hacer una clase jugador podemos usar este mismo objeto para hacerlo contra
 						// dos jugadores
 	// no cambia mucho los contenidos pero mas para una distincion de nomenclatura
 	// que tenga sentido
 
-	private boolean turno;
-	private String nombre;
+	private boolean turno;/*!< el turno del jugador*/
+	private String nombre;/*!< nombre del jugador*/
 
+
+	/*! \brief constructor
+	 \param String nombre del jugador
+	 */
 	public Jugador(String nombreParametro){
 		turno = true;
 		nombre = nombreParametro;
 	}
-
+	/*! \brief retorna el nombre del jugador
+	 \return String con el nombre del jugador
+	 */
 	public String getNombre(){
 		return nombre;
 	}
 
-	/*
-	 * 
-	 * public Jugador (boolean turnoParametro){
-	 * //System.out.
-	 * println("-> Se invoca al constructor que recibe el numero y el palo");
-	 * turno = turnoParametro;
-	 * nombreJugador = nombreJugador;
-	 * }
+		/*! \brief permite al jugador usar cartas por medio de la interfaz
+	 \param String nombre del jugador
+	 \param Mazo mano del jugador
+	 \param Mazo basura del juego
+	 \oaram boolean si la carta es especial
+	 \return int con la posicion de la carta
 	 */
 	public int inputJugador(String nombreJ, Mazo mano, Mazo basuraParametro, boolean esEspecial) { // ! Hace cumplir las
 																									// reglas para
@@ -52,6 +59,15 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 
 	}
 
+	/*! \brief forma de que el jugador juegue
+	 \param String nombre del jugador
+	 \param Mazo mano del jugador
+	 \param Mazo basura del juego
+	 \param boolean si la carta especial esta activa
+	 \param Juego acciones importantes del juego
+	 \param Mazo mano del rival
+	 \param String nombre del rival
+	 */
 	public void jugar(String nombreJ, Mazo mano, Mazo basuraParametro, Mazo pila,
 			boolean cartaEspecialActiva, int comerEspecial, // TODO: CREO QUE ESTOS NO ESTAN HACIENDO NADA
 			Juego juegoParametro, Mazo manoRival, String nombreRival) { // meter boolean rendirse
@@ -149,7 +165,13 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 		} while (turno == true);
 
 	}
-
+	/*! \brief forma de que el jugue la computadora
+	 \param String nombre del jugador
+	 \param Mazo mano del jugador
+	 \param Mazo basura del juego
+	 \param boolean si la carta especial esta activa
+	 \param Juego acciones importantes del juego
+	 */
 	public void jugarComputadora(String nombreJ, Mazo mano, Mazo basuraParametro, Mazo pila,
 			boolean cartaEspecialActiva, int comerEspecial, Juego juegoParametro) { // podriamos poner
 																					// dos compus a

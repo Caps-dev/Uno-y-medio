@@ -1,15 +1,22 @@
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
-
+/*! \class Interfaz ayuda para mostrar la interfaz 
+ * muestra la interfaz al jugador cuando sea su turno
+ * */
 public class Interfaz {
 
 	boolean estaActivo;
-
+	/*! \brief muestra el texto
+	 \param String texto
+	 \param String titulo del cuadro
+	 */
 	public void mostrarTexto(String texto, String titulo) { // usando esto que vimos en clase
 		JOptionPane.showMessageDialog(null, texto, titulo, JOptionPane.INFORMATION_MESSAGE);
 	}
 
-
+/*! \brief forma de que el jugador juegue
+	\return boolean jugar de nuevo
+	 */
 	public boolean nuevaPartida(){
 
 		String jugarDeNuevo = null;	
@@ -35,7 +42,10 @@ public class Interfaz {
 
 	}
 
-
+	/*! \brief muestra sus cartas al jugador
+	 \param Mazo mazo del jugador activo
+	 \param String titulo del cuadro
+	 */
 	public int escogerCarta(Mazo mazoParametro, String tituloCuadro) {
 
 		String cartas[] = mazoParametro.mazoToString(); // ahora esto recibe un mazo generico
@@ -50,7 +60,9 @@ public class Interfaz {
 		int posicion = mazoParametro.getPosicionCarta(cartas, opcion);
 		return posicion;
 	}
-
+	/*! \brief para cambiar el color del juego
+	 \param String titulo del cuadro
+	 */
 	public String escogerColor(String tituloCuadro) {
 
 		String[] colores = new String[] { "Rojo", "Verde", "Azul", "Naranja" }; // siempre van a ser los mismos
@@ -72,7 +84,9 @@ public class Interfaz {
 		// int posicion = mazoParametro.getPosicionCarta(cartas, opcion);
 		return colorEscogido;
 	}
-
+	/*! \brief muestra el menu al jugador
+	 /return int tipo de juego elegido
+	 */
 	public int menu() {
 		String tipoDeJuego = null;	
 		boolean rendirse = false;
@@ -102,7 +116,10 @@ public class Interfaz {
 		return tipoDeJuegoInt;
 
 	}
-
+	/*! \brief muestra un cuadro de si o no al jugador
+	 \param String nombre del jugador
+	 \return boolean si o no cancelar la carta
+	 */
 	public boolean cancelarBuscarPila(String nombreJugador) {
 		boolean cancelar = true;
 		int opcion = JOptionPane.showConfirmDialog(null, "desea cancelar la carta 'buscar en pila' jugada por su oponente", nombreJugador,
