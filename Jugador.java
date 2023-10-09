@@ -110,10 +110,7 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 					if (cancelarBP == false) {
 						mano.recibirCarta(basuraParametro.darCarta(1, posicion));
 					}
-					if ( (basuraParametro.getTamanio() > 3 ) && basuraParametro.getMazo()[basuraParametro.getTamanio() - 2].getEsEspecial() == false) {
-						basuraParametro.recibirCarta(basuraParametro.darCarta(1, basuraParametro.getMazo().length - 3)); 
-
-					} else if ( (basuraParametro.getTamanio() >= 2) && basuraParametro.getMazo()[basuraParametro.getTamanio() - 2].getEsEspecial() == false) {
+					if ( (basuraParametro.getTamanio() >= 2) && basuraParametro.getMazo()[basuraParametro.getTamanio() - 2].getEsEspecial() == false) {
 						basuraParametro.recibirCarta(basuraParametro.darCarta(1, basuraParametro.getMazo().length - 2)); 
 
 					} else {
