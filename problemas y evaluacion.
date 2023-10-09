@@ -1,0 +1,19 @@
+Hemos trabajo en conjunto y cada uno en sus espacios disponibles lo cual hablando creo que trabajamos parejo lo cual nos merecemos un 50% cada uno
+
+Con respecto a los problemas con encontramos con varios:
+
+- Hubo que cambiar el diagrama de clases inicial
+
+el diagrama era muy basico al inicio que lo pensamos
+
+- Comparación de Strings mediante == en vez de método equals
+
+no sabiamos lo del que existia el 'equals' los cual no pudimos hacerlo hasta que lo encontramos
+
+- Formato de las cartas especiales
+
+no sabiamos como hacer las cartas especial hasta que decidimos que el color fuera neutro en las cartas especiales lo cambiaramos para que sirvieran las siguientes cartas del color seleccionado
+
+- Aplicar la carta cancelar al buscar en pila
+
+Esta carta se los dificulto ya que no teniamos la idea muy clara y fue hasta los ultimos dias que lo implementamos y nos causo varios problemas que al final pudimos resolver.
