@@ -90,75 +90,56 @@ public class Jugador { // al hacer una clase jugador podemos usar este mismo obj
 				esCartaEspecial = mano.esCartaEspecial(basuraParametro.getUltimaCarta());
 				id = basuraParametro.getUltimaCarta().getId();
 
-				// si es especial vamos a invocar metodos de cartas especiales
 				if (esCartaEspecial && id != 12) { // 12 es buscar en pila
 
-					juegoParametro.sumarCartasComer(id); // TODO CREO QUE AQUI SE PODRIA HACER  LA ASIGNACION A COMERESPECIAL?
-
-					// el color de la carta especial es arbitrario entonces lo podemos cambiar
-					String color = interfaz.escogerColor(nombreJ);
+					juegoParametro.sumarCartasComer(id); 		
+					String color = interfaz.escogerColor(nombreJ);// el color de la carta especial es arbitrario entonces lo podemos cambiar
 					mano.setColor(basuraParametro.getUltimaCarta(), color);
-
 					turno = false; // el turno cambia a falso para que la siguiente persona siga jugando
 
-			} else if (esCartaEspecial && id == 12) { // buscar pila
-					
-				boolean cancelarBP = false; // BP = Buscar en Pila
-				posicion = inputJugador(nombreJ, basuraParametro, basuraParametro, true); 
+				} else if (esCartaEspecial && id == 12) { // buscar pila
+					boolean cancelarBP = false; // BP = Buscar en Pila
+					posicion = inputJugador(nombreJ, basuraParametro, basuraParametro, true); 
 
-				if(manoRival.posicionCartaCancelar()>=0){ // si el rival tiene una cartaCancelar
-					cancelarBP = interfaz.cancelarBuscarPila(nombreRival);
-					if (cancelarBP) {
-							basuraParametro.recibirCarta(manoRival.darCarta(1, manoRival.posicionCartaCancelar()));
-						}
-				}
+					if(manoRival.posicionCartaCancelar()>=0){ // si el rival tiene una cartaCancelar
+						cancelarBP = interfaz.cancelarBuscarPila(nombreRival);
+						if (cancelarBP) {
+								basuraParametro.recibirCarta(manoRival.darCarta(1, manoRival.posicionCartaCancelar()));
+							}
+					}
+					if (cancelarBP == false) {
+						mano.recibirCarta(basuraParametro.darCarta(1, posicion));
+					}
+					if ( (basuraParametro.getTamanio() > 3 ) && basuraParametro.getMazo()[basuraParametro.getTamanio() - 2].getEsEspecial() == false) {
+						basuraParametro.recibirCarta(basuraParametro.darCarta(1, basuraParametro.getMazo().length - 3)); 
 
-				if (cancelarBP == false) {
-					mano.recibirCarta(basuraParametro.darCarta(1, posicion));
-				}
+					} else if ( (basuraParametro.getTamanio() >= 2) && basuraParametro.getMazo()[basuraParametro.getTamanio() - 2].getEsEspecial() == false) {
+						basuraParametro.recibirCarta(basuraParametro.darCarta(1, basuraParametro.getMazo().length - 2)); 
 
-				// TODO: AGREGAR UNA EXPLICACION DE ESTO
-				if ( (basuraParametro.getTamanio() > 3 ) && basuraParametro.getMazo()[basuraParametro.getTamanio() - 2].getEsEspecial() == false) {
-
-					basuraParametro.recibirCarta(basuraParametro.darCarta(1, basuraParametro.getMazo().length - 3)); // ????
-
-				} else if ( (basuraParametro.getTamanio() >= 2) && basuraParametro.getMazo()[basuraParametro.getTamanio() - 2].getEsEspecial() == false) {
-
-					basuraParametro.recibirCarta(basuraParametro.darCarta(1, basuraParametro.getMazo().length - 2)); // ???
-
-				} else {
-					mano.setColor(basuraParametro.getUltimaCarta(), interfaz.escogerColor(nombreJ));
-				}
-
-
-			} else { // si no juega una carta especial, la carta normal se pone en la basura
-				if (juegoParametro.cartasComer > 0) { //todo hacer esto un metodo
-					System.out.println(
-							nombreJ + " come " + juegoParametro.cartasComer + "\n ----------------------");
-					mano.recibirCarta(pila.darCarta(juegoParametro.cartasComer, 999));
-					juegoParametro.resetCartasComer();
-				}
-				turno = false; // el turno cambia a falso para que la siguiente persona siga jugando
-				}
-
+					} else {
+						mano.setColor(basuraParametro.getUltimaCarta(), interfaz.escogerColor(nombreJ));
+					}
+				} else { // si no juega una carta especial, la carta normal se pone en la basura
+					if (juegoParametro.cartasComer > 0) { 
+						System.out.println(
+								nombreJ + " come " + juegoParametro.cartasComer + "\n ----------------------");
+						mano.recibirCarta(pila.darCarta(juegoParametro.cartasComer, 999));
+						juegoParametro.resetCartasComer();
+					}
+					turno = false; // el turno cambia a falso para que la siguiente persona siga jugando
+					}
 			} else if (cartaEspecialActiva == false) { // parte 1 cuando no tiene cartas validas
 				System.out.println(nombreJ + " no tiene cartas validas para jugar, come 1");
 				if (pila.getTamanio() == 0) {
 					turno = false;
 				} else {
-					mano.recibirCarta(pila.darCarta(1, 999));// en el caso de que la persona no tenga cartas validas
-																// para
-																// jugar se le otorga una directamente hasta que pueda
-																// jugar
-
+					mano.recibirCarta(pila.darCarta(1, 999));// se le dan cartas hasta que tenga cartas validas
 				}
-
 			} else { // TODO: creo que esto se podria meter arriba con algunas condiciones para que la persona coma si no tiene una carta que pueda jugar
 
 				System.out.println(nombreJ + " no tiene cartas validas para jugar, come" + comerEspecial);
-				mano.recibirCarta(pila.darCarta(comerEspecial, 999));// en el caso de que la persona no tenga cartas
-																		// validas para
-				// jugar se le otorga una directamente hasta que pueda jugar
+				mano.recibirCarta(pila.darCarta(comerEspecial, 999));// come cartas segun comerEspecial (efecto de comes)
+					turno = false;
 
 			}
 
